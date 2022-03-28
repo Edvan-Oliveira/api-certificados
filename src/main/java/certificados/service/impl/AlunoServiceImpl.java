@@ -32,6 +32,9 @@ public class AlunoServiceImpl implements AlunoService {
 
     @Override
     public void atualizar(Aluno aluno) {
+        Aluno alunoSalvo = buscarPorId(aluno.getId());
+        aluno.setDataInicio(alunoSalvo.getDataInicio());
+        aluno.setDataConclusao(alunoSalvo.getDataConclusao());
         alunoRepository.save(aluno);
     }
 

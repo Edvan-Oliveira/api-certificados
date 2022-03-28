@@ -1,5 +1,6 @@
 package certificados.domain.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,8 @@ public class AlunoGetResponse {
     private String nome;
     private String curso;
     private String docente;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataInicio;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataConclusao;
 }
