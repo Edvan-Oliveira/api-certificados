@@ -9,6 +9,7 @@ import certificados.domain.response.AlunoGetResponse;
 import certificados.domain.response.PaginacaoResponse;
 import certificados.service.AlunoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +30,10 @@ public class AlunoResource {
     private final AlunoMapper alunoMapper;
 
     @GetMapping
-    public ResponseEntity<PaginacaoResponse<Aluno>> listar(Pageable pageable) {
-        return ResponseEntity.status(OK).body(obterPaginacao(alunoService.listar(pageable)));
+    public ResponseEntity<PaginacaoResponse<AlunoGetResponse>> listar(Pageable pageable) {
+        Page<AlunoGetResponse> pageAlunoGetResponse = alunoService.listar(pageable)
+                .map(alunoMapper::converterParaAlunoGetResponse);
+        return ResponseEntity.status(OK).body(obterPaginacao(pageAlunoGetResponse));
     }
 
     @GetMapping(URL_ID)

@@ -16,4 +16,10 @@ public class AlunoGetResponse {
     private Date dataInicio;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataConclusao;
+    private String certificado;
+
+    public String getCertificado() {
+        return getDataConclusao() != null
+                ? "https://edvan-api-certificados.herokuapp.com/certificados/".concat(id.toString()) : null;
+    }
 }
