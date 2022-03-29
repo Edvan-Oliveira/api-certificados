@@ -1,6 +1,7 @@
 package certificados.resource.exception;
 
 import certificados.service.exception.AlunoNaoEncontradoException;
+import certificados.service.exception.DataConclusaoException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -17,9 +18,11 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @ControllerAdvice
 public class ManipuladorException {
 
-    @ExceptionHandler(AlunoNaoEncontradoException.class)
-    public ResponseEntity<ErroPadrao> alunoNaoEncontradoException(AlunoNaoEncontradoException excecao,
-                                                                  HttpServletRequest requisicao) {
+    @ExceptionHandler({
+            AlunoNaoEncontradoException.class,
+            DataConclusaoException.class
+    })
+    public ResponseEntity<ErroPadrao> excecoesAlunoService(RuntimeException excecao, HttpServletRequest requisicao) {
         ErroPadrao erro = ErroPadrao.builder()
                 .caminho(requisicao.getRequestURI())
                 .status(NOT_FOUND.value())
